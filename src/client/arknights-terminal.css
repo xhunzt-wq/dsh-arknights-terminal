@@ -164,6 +164,25 @@ body[data-dsh-arknights-terminal][data-arknights-mode='dark']
   :is(div, span, p, button) {
   color: inherit !important;
 }
+body[data-dsh-arknights-terminal][data-arknights-mode='dark']
+  :is([data-pane='sidebar'], [class*='sidebarCol']) {
+  background:
+    linear-gradient(180deg, rgba(143, 181, 188, .1), transparent 28%),
+    linear-gradient(135deg, var(--ak-sidebar), var(--ak-sidebar-deep)) !important;
+}
+body[data-dsh-arknights-terminal][data-arknights-mode='dark']
+  :is([data-pane='sidebar'], [class*='sidebarCol'])
+  > [data-slot='sidebar'] > [class*='root'] {
+  background: transparent !important;
+  background-color: transparent !important;
+}
+body[data-dsh-arknights-terminal][data-arknights-mode='dark']
+  :is([data-pane='sidebar'], [class*='sidebarCol'])
+  :is(button, [role='treeitem']):hover {
+  color: #f4fbfc !important;
+  background: rgba(113, 152, 160, .24) !important;
+  border-color: rgba(192, 225, 230, .28) !important;
+}
 
 body[data-dsh-arknights-terminal]
   :is([data-pane='sidebar'], [class*='sidebarCol']) [class*='quietBars'] {
@@ -339,6 +358,21 @@ body[data-dsh-arknights-terminal][data-arknights-phase='active'] :is([data-chat-
   -webkit-backdrop-filter: none !important;
 }
 body[data-dsh-arknights-terminal][data-arknights-mode='dark'][data-arknights-phase='active'] :is([data-chat-flow], [class*='conversation'], [class*='messageList'], main > section) { background: rgba(7,18,24,.22) !important; }
+
+/* DSH text tokens retain their light-theme ink in several message leaf
+   components.  Restore the intended light foreground only in dark mode,
+   while leaving code surfaces and their syntax colouring untouched. */
+body[data-dsh-arknights-terminal][data-arknights-mode='dark']
+  [data-chat-flow-kind] [data-slot='conversation.chat.node'],
+body[data-dsh-arknights-terminal][data-arknights-mode='dark']
+  [data-chat-flow-kind] [data-slot='conversation.chat.node']
+  :is(p, li, blockquote, div, span, strong, em, h1, h2, h3, h4, h5, h6):not(pre):not(code):not(pre *):not(code *) {
+  color: var(--ak-ink) !important;
+}
+body[data-dsh-arknights-terminal][data-arknights-mode='dark']
+  [data-chat-flow-kind] [data-slot='conversation.chat.node'] a:not(pre *):not(code *) {
+  color: #82c9ff !important;
+}
 
 body[data-dsh-arknights-terminal] :is(.headline, h1, [class*='headlineText'], [class*='headline']:not([class*='preview'])) { color: #17282e !important; text-shadow: 0 1px rgba(255,255,255,.72), 0 8px 30px rgba(255,255,255,.55); }
 body[data-dsh-arknights-terminal] :is(.subtitle, [class*='subtitle']) { color: #425b61 !important; text-shadow: 0 1px 8px rgba(255,255,255,.8); }
