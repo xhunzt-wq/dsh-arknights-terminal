@@ -1,0 +1,380 @@
+body[data-dsh-arknights-terminal] {
+  --ak-accent: #e45549;
+  --ak-accent-soft: rgba(228, 85, 73, .14);
+  --ak-ink: #18272d;
+  --ak-muted: #586b72;
+  --ak-line: rgba(48, 74, 82, .22);
+  --ak-glass: rgba(247, 251, 250, .74);
+  --ak-glass-strong: rgba(249, 252, 251, .88);
+  --ak-glass-edge: rgba(255, 255, 255, .78);
+  --ak-sidebar: rgba(226, 236, 233, .91);
+  --ak-sidebar-deep: rgba(207, 222, 218, .94);
+  --ak-shadow: 0 18px 48px rgba(29, 50, 55, .16), inset 0 1px rgba(255,255,255,.72);
+  --ak-sidebar-width: 0px;
+  color: var(--ak-ink);
+  background: #dce8e5;
+}
+
+body[data-dsh-arknights-terminal][data-arknights-mode='dark'] {
+  --ak-accent: #ff786d;
+  --ak-accent-soft: rgba(255, 120, 109, .15);
+  --ak-ink: #e7f1f1;
+  --ak-muted: #a8bdc2;
+  --ak-line: rgba(176, 213, 220, .22);
+  --ak-glass: rgba(15, 28, 35, .69);
+  --ak-glass-strong: rgba(17, 31, 38, .86);
+  --ak-glass-edge: rgba(192, 225, 230, .16);
+  --ak-sidebar: rgba(42, 60, 65, .9);
+  --ak-sidebar-deep: rgba(28, 46, 52, .94);
+  --ak-shadow: 0 20px 54px rgba(0, 9, 15, .38), inset 0 1px rgba(255,255,255,.08);
+  color-scheme: dark;
+  background: #0f2028;
+}
+
+body[data-dsh-arknights-terminal] [data-skin-chrome='scene'] {
+  position: fixed;
+  z-index: 0;
+  pointer-events: none;
+  overflow: hidden;
+  inset: 0 0 0 var(--ak-sidebar-width);
+  isolation: isolate;
+}
+
+body[data-dsh-arknights-terminal] [data-ak-layer='background'] {
+  position: absolute;
+  inset: -16px;
+  background-position: center center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  transform: scale(1.018);
+  transition: background-image .24s ease, filter .3s ease, transform .16s ease-out;
+  will-change: transform;
+}
+
+body[data-dsh-arknights-terminal] [data-skin-chrome='scene']::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(90deg, rgba(238,246,244,.54), rgba(255,255,255,.08) 36%, rgba(255,255,255,.08) 65%, rgba(238,246,244,.34)),
+    linear-gradient(180deg, rgba(238,246,244,.12), rgba(222,235,232,.26));
+}
+
+body[data-dsh-arknights-terminal][data-arknights-mode='dark'] [data-skin-chrome='scene']::after {
+  background: linear-gradient(90deg, rgba(7,18,25,.24), transparent 38%, transparent 66%, rgba(6,16,23,.22)), linear-gradient(180deg, rgba(4,12,18,.08), rgba(4,13,19,.28));
+}
+
+body[data-dsh-arknights-terminal] [data-ak-layer='character-wrap'] {
+  position: absolute;
+  z-index: 2;
+  inset: 0;
+  transition: transform .16s ease-out, opacity .25s ease;
+  will-change: transform;
+}
+
+body[data-dsh-arknights-terminal] [data-ak-layer='character'] {
+  position: absolute;
+  right: clamp(18px, 3.8vw, 82px);
+  bottom: -2.4vh;
+  height: min(84vh, 950px);
+  max-width: 46vw;
+  object-fit: contain;
+  object-position: right bottom;
+  filter: drop-shadow(0 20px 28px rgba(24, 36, 39, .23));
+  transform-origin: 55% 85%;
+  animation: ak-operator-idle 5.8s ease-in-out infinite;
+}
+
+body[data-dsh-arknights-terminal][data-arknights-phase='active'] [data-ak-layer='character'] {
+  height: min(76vh, 860px);
+  right: clamp(-170px, -10vw, -72px);
+  bottom: -3.2vh;
+  opacity: .96;
+}
+
+body[data-dsh-arknights-terminal][data-arknights-mode='dark'] [data-ak-layer='character'] {
+  filter: drop-shadow(0 20px 34px rgba(0, 8, 13, .48)) brightness(.9) saturate(.9);
+  opacity: .88;
+}
+
+@keyframes ak-operator-idle {
+  0%, 100% { transform: translate3d(0, 0, 0) rotate(-.08deg); }
+  50% { transform: translate3d(0, -7px, 0) rotate(.1deg); }
+}
+
+body[data-dsh-arknights-terminal] > #root,
+body[data-dsh-arknights-terminal] > [data-reactroot] {
+  position: relative;
+  z-index: 1;
+  background: transparent !important;
+}
+
+/* DSH keeps an opaque page canvas inside the React root.  It is a scene
+   carrier rather than a content card, so it must be transparent for the
+   independently positioned artwork to remain visible.  Leaf surfaces are
+   intentionally styled further below and retain their glass contrast. */
+body[data-dsh-arknights-terminal] :is(
+  [data-phase='hero'],
+  [data-phase='active'],
+  [class*='ConversationRoot'],
+  [class*='conversationRoot']
+) {
+  background: transparent !important;
+  background-color: transparent !important;
+}
+
+/* Current DSH web-app paints the whole center/sidebar frame white above the
+   skin scene.  data-slot=root is stable host markup; scoping the frame rule
+   beneath it avoids touching dialogs, cards, or the skin's sidebar frame. */
+body[data-dsh-arknights-terminal] [data-slot='root'] > [class*='frame'] {
+  background: transparent !important;
+  background-color: transparent !important;
+}
+
+body[data-dsh-arknights-terminal] :is([class*='titlebar'], header, [data-titlebar]) {
+  border-color: var(--ak-line) !important;
+  background: color-mix(in srgb, var(--ak-glass-strong) 76%, transparent) !important;
+  backdrop-filter: blur(16px) saturate(1.15);
+  -webkit-backdrop-filter: blur(16px) saturate(1.15);
+}
+
+body[data-dsh-arknights-terminal] :is([data-pane='sidebar'], [class*='sidebarCol']) {
+  position: relative;
+  z-index: 4;
+  color: var(--ak-ink) !important;
+  border-right: 1px solid var(--ak-line) !important;
+  background:
+    linear-gradient(180deg, rgba(255,255,255,.34), transparent 26%),
+    linear-gradient(135deg, var(--ak-sidebar), var(--ak-sidebar-deep)) !important;
+  box-shadow: 10px 0 30px rgba(35,59,63,.1);
+  backdrop-filter: blur(20px) saturate(1.08);
+  -webkit-backdrop-filter: blur(20px) saturate(1.08);
+}
+
+body[data-dsh-arknights-terminal] :is([data-pane='sidebar'], [class*='sidebarCol']) > div {
+  position: relative;
+  isolation: isolate;
+  color: inherit !important;
+  background: transparent !important;
+  background-color: transparent !important;
+}
+
+body[data-dsh-arknights-terminal][data-arknights-mode='dark']
+  :is([data-pane='sidebar'], [class*='sidebarCol'])
+  :is(div, span, p, button) {
+  color: inherit !important;
+}
+
+body[data-dsh-arknights-terminal]
+  :is([data-pane='sidebar'], [class*='sidebarCol']) [class*='quietBars'] {
+  background: transparent !important;
+  background-color: transparent !important;
+}
+
+body[data-dsh-arknights-terminal]
+  :is([data-pane='sidebar'], [class*='sidebarCol']) [class*='fade'] {
+  background: linear-gradient(transparent, var(--ak-sidebar-deep)) !important;
+}
+
+body[data-dsh-arknights-terminal] [data-skin-chrome='sidebar-frame'] {
+  position: absolute;
+  inset: 5px;
+  z-index: -1;
+  pointer-events: none;
+  border: 1px solid color-mix(in srgb, var(--ak-accent) 42%, var(--ak-line));
+  clip-path: polygon(0 0, calc(100% - 14px) 0, 100% 14px, 100% 100%, 14px 100%, 0 calc(100% - 14px));
+}
+
+body[data-dsh-arknights-terminal] [data-skin-chrome='sidebar-frame']::before,
+body[data-dsh-arknights-terminal] [data-skin-chrome='sidebar-frame']::after {
+  content: '';
+  position: absolute;
+  left: 12px;
+  right: 12px;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--ak-accent), transparent);
+  opacity: .5;
+}
+body[data-dsh-arknights-terminal] [data-skin-chrome='sidebar-frame']::before { top: 52px; }
+body[data-dsh-arknights-terminal] [data-skin-chrome='sidebar-frame']::after { bottom: 18px; }
+
+body[data-dsh-arknights-terminal] [data-skin-chrome='sidebar-mark'] {
+  display: grid;
+  grid-template-columns: 39px 1fr auto;
+  align-items: center;
+  gap: 9px;
+  min-height: 46px;
+  margin: 2px 4px 12px;
+  padding: 5px 7px;
+  border-bottom: 1px solid var(--ak-line);
+  font: 600 8px/1.15 ui-monospace, SFMono-Regular, Menlo, monospace;
+  letter-spacing: .14em;
+  color: var(--ak-muted);
+}
+body[data-dsh-arknights-terminal] [data-skin-chrome='sidebar-mark'] strong {
+  display: grid;
+  place-items: center;
+  align-self: stretch;
+  color: #fff;
+  background: var(--ak-accent);
+  font: italic 800 15px/1 system-ui;
+  letter-spacing: -.03em;
+  clip-path: polygon(0 0, 100% 0, 86% 100%, 0 100%);
+}
+body[data-dsh-arknights-terminal] [data-skin-chrome='sidebar-mark'] em { color: var(--ak-accent); font-style: normal; }
+
+body[data-dsh-arknights-terminal] :is(button, [role='button']) { color: inherit; }
+body[data-dsh-arknights-terminal] :is([data-pane='sidebar'], [class*='sidebarCol']) button {
+  border: 1px solid var(--ak-line) !important;
+  background: rgba(255,255,255,.36) !important;
+  box-shadow: inset 0 1px rgba(255,255,255,.56);
+}
+body[data-dsh-arknights-terminal][data-arknights-mode='dark'] :is([data-pane='sidebar'], [class*='sidebarCol']) button { background: rgba(113,152,160,.1) !important; }
+
+body[data-dsh-arknights-terminal] [data-ak-workspace-row] {
+  margin-top: 7px !important;
+  border-left: 3px solid var(--ak-accent) !important;
+  background: linear-gradient(90deg, var(--ak-accent-soft), transparent 82%) !important;
+  font-weight: 700;
+}
+body[data-dsh-arknights-terminal] [data-ak-session-row] {
+  position: relative;
+  margin-left: 9px !important;
+  border-left: 1px solid color-mix(in srgb, var(--ak-accent) 48%, var(--ak-line));
+}
+body[data-dsh-arknights-terminal] [data-ak-session-row]::before {
+  content: '';
+  position: absolute;
+  left: -1px;
+  top: 50%;
+  width: 8px;
+  border-top: 1px solid color-mix(in srgb, var(--ak-accent) 48%, var(--ak-line));
+}
+body[data-dsh-arknights-terminal] [data-ak-session-row][aria-selected='true'] {
+  color: var(--ak-ink) !important;
+  background: linear-gradient(90deg, rgba(255,255,255,.76), var(--ak-accent-soft)) !important;
+  box-shadow: inset 3px 0 var(--ak-accent), 0 5px 18px rgba(37,58,63,.08);
+}
+body[data-dsh-arknights-terminal][data-arknights-mode='dark'] [data-ak-session-row][aria-selected='true'] { background: linear-gradient(90deg, rgba(112,152,160,.2), var(--ak-accent-soft)) !important; }
+
+body[data-dsh-arknights-terminal] :is(
+  [data-composer-card], [class*='composerCard'], [class*='inputContainer'],
+  [role='menu'], [role='listbox'], [role='dialog'], [data-radix-popper-content-wrapper] > *,
+  [data-slot*='dialog'], [data-slot*='menu'], [data-slot*='popover'],
+  [data-chat-flow] > article, [data-chat-flow] [data-message], [class*='messageBubble'],
+  [data-chat-flow-kind='user'] > [data-slot='conversation.chat.node'] > div,
+  [data-chat-flow-kind='assistant-step'] > [data-slot='conversation.chat.node'] > div
+) {
+  color: var(--ak-ink) !important;
+  border-color: var(--ak-glass-edge) !important;
+  background: linear-gradient(145deg, var(--ak-glass-strong), var(--ak-glass)) !important;
+  box-shadow: var(--ak-shadow) !important;
+  backdrop-filter: blur(18px) saturate(1.14) !important;
+  -webkit-backdrop-filter: blur(18px) saturate(1.14) !important;
+}
+
+body[data-dsh-arknights-terminal]
+  [data-chat-flow-kind='assistant-step'] > [data-slot='conversation.chat.node'] > div {
+  box-sizing: border-box;
+  margin-block: 5px;
+  padding: 14px 18px;
+  border: 1px solid var(--ak-glass-edge);
+  border-radius: 10px 10px 10px 3px;
+}
+
+body[data-dsh-arknights-terminal]
+  [data-chat-flow-kind='user'] > [data-slot='conversation.chat.node'] > div {
+  box-sizing: border-box;
+  padding: 11px 15px;
+  border: 1px solid color-mix(in srgb, var(--ak-accent) 28%, var(--ak-glass-edge));
+  border-radius: 10px 10px 3px 10px;
+}
+
+body[data-dsh-arknights-terminal]
+  [data-chat-flow-kind='tool-call'] > [data-slot='conversation.chat.node'] > div {
+  border-radius: 6px;
+  background: color-mix(in srgb, var(--ak-glass) 72%, transparent) !important;
+  backdrop-filter: blur(10px) saturate(1.08);
+  -webkit-backdrop-filter: blur(10px) saturate(1.08);
+}
+
+body[data-dsh-arknights-terminal] :is([data-composer-card], [class*='composerCard']) {
+  position: relative;
+  border: 1px solid var(--ak-glass-edge) !important;
+  border-radius: 8px !important;
+  overflow: visible;
+}
+body[data-dsh-arknights-terminal] :is([data-composer-card], [class*='composerCard'])::before {
+  content: 'TACTICAL REQUEST // INPUT';
+  position: absolute;
+  left: 14px;
+  top: -17px;
+  padding: 4px 9px;
+  color: #fff;
+  background: var(--ak-accent);
+  font: 700 8px/1 ui-monospace, SFMono-Regular, Menlo, monospace;
+  letter-spacing: .14em;
+  clip-path: polygon(0 0, 100% 0, calc(100% - 7px) 100%, 0 100%);
+}
+body[data-dsh-arknights-terminal] :is(textarea, input) { color: var(--ak-ink) !important; caret-color: var(--ak-accent); }
+body[data-dsh-arknights-terminal] :is([data-composer-card], [class*='composerCard']) :is(textarea, input) { background: transparent !important; }
+
+body[data-dsh-arknights-terminal][data-arknights-phase='active'] :is([data-chat-flow], [class*='conversation'], [class*='messageList'], main > section) {
+  background: rgba(243,249,248,.12) !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+}
+body[data-dsh-arknights-terminal][data-arknights-mode='dark'][data-arknights-phase='active'] :is([data-chat-flow], [class*='conversation'], [class*='messageList'], main > section) { background: rgba(7,18,24,.22) !important; }
+
+body[data-dsh-arknights-terminal] :is(.headline, h1, [class*='headlineText'], [class*='headline']:not([class*='preview'])) { color: #17282e !important; text-shadow: 0 1px rgba(255,255,255,.72), 0 8px 30px rgba(255,255,255,.55); }
+body[data-dsh-arknights-terminal] :is(.subtitle, [class*='subtitle']) { color: #425b61 !important; text-shadow: 0 1px 8px rgba(255,255,255,.8); }
+body[data-dsh-arknights-terminal][data-arknights-mode='dark'] :is(.headline, h1, [class*='headlineText'], [class*='headline']:not([class*='preview'])) { color: #edf7f8 !important; text-shadow: 0 2px 18px rgba(0,7,12,.85); }
+body[data-dsh-arknights-terminal][data-arknights-mode='dark'] [class*='headline'] [class*='fish'] { color: #edf7f8 !important; }
+body[data-dsh-arknights-terminal][data-arknights-mode='dark'] :is(.subtitle, [class*='subtitle']) { color: #c3d8dc !important; text-shadow: 0 2px 12px rgba(0,7,12,.8); }
+
+body[data-dsh-arknights-terminal] [data-skin-chrome='hud'] { position: fixed; z-index: 8; pointer-events: none; inset: 37px 8px 8px calc(var(--ak-sidebar-width) + 8px); color: var(--ak-ink); }
+body[data-dsh-arknights-terminal] [data-hud-corner] { position: absolute; width: 42px; height: 42px; border-color: color-mix(in srgb, var(--ak-ink) 74%, transparent); border-style: solid; opacity: .72; }
+body[data-dsh-arknights-terminal] [data-hud-corner='tl'] { left:0;top:0;border-width:2px 0 0 2px }
+body[data-dsh-arknights-terminal] [data-hud-corner='tr'] { right:0;top:0;border-width:2px 2px 0 0 }
+body[data-dsh-arknights-terminal] [data-hud-corner='bl'] { left:0;bottom:0;border-width:0 0 2px 2px }
+body[data-dsh-arknights-terminal] [data-hud-corner='br'] { right:0;bottom:0;border-width:0 2px 2px 0 }
+body[data-dsh-arknights-terminal] [data-hud-status] { position:absolute;top:8px;left:14px;display:flex;align-items:center;gap:8px;font:700 8px/1 ui-monospace,monospace;letter-spacing:.14em;opacity:.72 }
+body[data-dsh-arknights-terminal] [data-hud-status] b { color:#fff;background:var(--ak-accent);padding:5px 9px }
+body[data-dsh-arknights-terminal] [data-hud-status] i { width:5px;height:5px;border-radius:50%;background:#59b98a;box-shadow:0 0 8px #59b98a }
+body[data-dsh-arknights-terminal] [data-hud-index] { position:absolute;right:17px;bottom:10px;font:600 7px/1 ui-monospace,monospace;letter-spacing:.22em;opacity:.42 }
+
+body[data-dsh-arknights-terminal] [data-skin-chrome='settings'] {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  margin: 16px 0;
+  padding: 14px 16px;
+  border: 1px solid var(--ak-line);
+  border-left: 3px solid var(--ak-accent);
+  color: var(--ak-ink);
+  background: var(--ak-glass);
+  border-radius: 7px;
+}
+body[data-dsh-arknights-terminal] [data-skin-chrome='settings'] > div:first-child { display:flex;flex-direction:column;gap:4px }
+body[data-dsh-arknights-terminal] [data-skin-chrome='settings'] small { color:var(--ak-muted) }
+body[data-dsh-arknights-terminal] [data-skin-chrome='settings'] [role='group'] { display:flex;gap:5px;padding:3px;border:1px solid var(--ak-line);border-radius:5px }
+body[data-dsh-arknights-terminal] [data-skin-chrome='settings'] button { padding:6px 10px;border:0;background:transparent;color:var(--ak-muted);border-radius:3px }
+body[data-dsh-arknights-terminal] [data-skin-chrome='settings'] button[aria-pressed='true'] { color:#fff;background:var(--ak-accent);box-shadow:0 4px 12px var(--ak-accent-soft) }
+
+body[data-dsh-arknights-terminal] [data-ak-backdrop-frozen] { backdrop-filter:none !important;-webkit-backdrop-filter:none !important }
+body[data-dsh-arknights-terminal] [data-dsh-motion-ghost] { pointer-events:none !important;user-select:none !important }
+
+@media (max-width: 900px), (pointer: coarse) {
+  body[data-dsh-arknights-terminal] [data-ak-layer='character'] { height:min(64vh,680px);right:-9vw;opacity:.58 }
+  body[data-dsh-arknights-terminal] [data-skin-chrome='hud'] { display:none }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  body[data-dsh-arknights-terminal] *, body[data-dsh-arknights-terminal] *::before, body[data-dsh-arknights-terminal] *::after { scroll-behavior:auto !important;animation-duration:.001ms !important;animation-iteration-count:1 !important;transition-duration:.001ms !important }
+  body[data-dsh-arknights-terminal] [data-ak-layer] { transform:none !important }
+}
+
+@media (prefers-reduced-transparency: reduce) {
+  body[data-dsh-arknights-terminal] :is([data-composer-card],[class*='composerCard'],[role='menu'],[role='listbox'],[role='dialog']) { background:var(--ak-glass-strong) !important;backdrop-filter:none !important;-webkit-backdrop-filter:none !important }
+}

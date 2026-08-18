@@ -1,0 +1,4 @@
+- insert:
+    - id: ui-skin-arknights-terminal
+      name: '@dsh-external/dsh-client-ui-skin-arknights-terminal'
+      disabled: true

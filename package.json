@@ -1,0 +1,38 @@
+{
+  "name": "@dsh-external/dsh-client-ui-skin-arknights-terminal",
+  "description": "Arknights-inspired operations terminal skin for DeepSeek Harness Web GUI",
+  "version": "0.4.0",
+  "private": true,
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/xhunzt-wq/dsh-arknights-terminal.git"
+  },
+  "homepage": "https://github.com/xhunzt-wq/dsh-arknights-terminal#readme",
+  "bugs": {
+    "url": "https://github.com/xhunzt-wq/dsh-arknights-terminal/issues"
+  },
+  "type": "module",
+  "main": "lib/index.js",
+  "exports": {
+    ".": "./lib/index.js",
+    "./client": "./lib/client.js",
+    "./skin.json": "./skin.json",
+    "./package.json": "./package.json"
+  },
+  "scripts": {
+    "build": "node scripts/build.mjs",
+    "check": "node --check lib/index.js && node --check lib/client.js"
+  },
+  "dsh": {
+    "bundle": { "patch": "./cordis.patch.yml" },
+    "client": { "inject": [], "platform": "web" }
+  },
+  "license": "CC-BY-NC-SA-4.0",
+  "peerDependencies": {
+    "@deepseek-ai/cordis": "^4.0.1"
+  },
+  "files": [
+    "assets", "lib", "preview", "src", "scripts", "cordis.patch.yml",
+    "skin.json", "LICENSE", "NOTICE", "README.md"
+  ]
+}

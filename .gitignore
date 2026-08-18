@@ -1,0 +1,17 @@
+.DS_Store
+
+# Original art supplied for local development and non-final working files.
+*.png
+image/
+assets/*-source*.png
+assets/*-chroma*.png
+assets/*-clean.png
+assets/arknights-character-*
+assets/arknights-command-deck-*
+assets/arknights-workspace-0*
+assets/arknights-workspace-deck-source-v3.png
+178695*.png
+
+# Generated local preview harness; public previews use the WebP files.
+preview/*.png
+preview/dev-harness.html

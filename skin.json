@@ -1,0 +1,15 @@
+{
+  "id": "arknights-terminal",
+  "name": "罗德岛终端",
+  "nameEn": "Rhodes Operations Terminal",
+  "author": "xhunz",
+  "tagline": "昼夜罗德岛终端、单干员视差与克制玻璃动效",
+  "description": "一套受明日方舟工业设计语言启发，区分昼夜初始页与工作区、支持自适应视差和语义动效的 DeepSeek Harness WebUI 非商业同人皮肤。",
+  "tags": ["anime", "arknights", "industrial", "terminal", "tactical", "parallax", "glass"],
+  "accent": "#d54a3f",
+  "bodyAttr": "data-dsh-arknights-terminal",
+  "package": "@dsh-external/dsh-client-ui-skin-arknights-terminal",
+  "wiring": { "id": "ui-skin-arknights-terminal", "bundleWired": false },
+  "preview": { "light": "preview/light.webp", "dark": "preview/dark.webp" },
+  "order": 10
+}
