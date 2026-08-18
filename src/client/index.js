@@ -101,8 +101,8 @@ function decorateWorkspaceTree() {
 }
 
 function settingsHost() {
-  return [...document.querySelectorAll("[role='dialog'], [data-slot*='settings'], [class*='settings']")]
-    .find(element => /设置|settings|general|通用/i.test(element.textContent || ''))
+  return [...document.querySelectorAll("[role='dialog'][aria-modal='true']")]
+    .find(element => /设置|settings/i.test(element.textContent || ''))
 }
 
 function updateSettingsSelection(section) {
@@ -117,8 +117,21 @@ function updateSettingsSelection(section) {
 }
 
 function ensureSettings(syncMode) {
-  const host = settingsHost()
+  const dialog = settingsHost()
+  if (!dialog) {
+    document.querySelectorAll('[data-ak-settings-open]').forEach(element => {
+      delete element.dataset.akSettingsOpen
+    })
+    return
+  }
+  const host = dialog.querySelector("[data-slot='settings.section']")
   if (!host || host.querySelector("[data-skin-chrome='settings']")) return
+  dialog.dataset.akSettingsDialog = ''
+  const overlay = dialog.parentElement?.matches("[role='presentation']")
+    ? dialog.parentElement
+    : null
+  if (overlay) overlay.dataset.akSettingsOverlay = ''
+  dialog.closest(SIDEBAR_SELECTOR)?.setAttribute('data-ak-settings-open', '')
   const section = document.createElement('section')
   section.dataset.skinChrome = 'settings'
   section.dataset.skinOwner = SKIN_OWNER

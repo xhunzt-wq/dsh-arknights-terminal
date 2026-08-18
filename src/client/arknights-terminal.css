@@ -344,7 +344,10 @@ body[data-dsh-arknights-terminal] [data-hud-status] i { width:5px;height:5px;bor
 body[data-dsh-arknights-terminal] [data-hud-index] { position:absolute;right:17px;bottom:10px;font:600 7px/1 ui-monospace,monospace;letter-spacing:.22em;opacity:.42 }
 
 body[data-dsh-arknights-terminal] [data-skin-chrome='settings'] {
+  box-sizing: border-box;
   display: flex;
+  width: 100%;
+  min-width: 0;
   align-items: center;
   justify-content: space-between;
   gap: 24px;
@@ -361,6 +364,50 @@ body[data-dsh-arknights-terminal] [data-skin-chrome='settings'] small { color:va
 body[data-dsh-arknights-terminal] [data-skin-chrome='settings'] [role='group'] { display:flex;gap:5px;padding:3px;border:1px solid var(--ak-line);border-radius:5px }
 body[data-dsh-arknights-terminal] [data-skin-chrome='settings'] button { padding:6px 10px;border:0;background:transparent;color:var(--ak-muted);border-radius:3px }
 body[data-dsh-arknights-terminal] [data-skin-chrome='settings'] button[aria-pressed='true'] { color:#fff;background:var(--ak-accent);box-shadow:0 4px 12px var(--ak-accent-soft) }
+
+/* DSH mounts the settings portal below the sidebar trigger.  The skin's
+   sidebar frame intentionally clips artwork, so explicitly restore this
+   modal overlay to viewport size before applying the glass surface. */
+body[data-dsh-arknights-terminal] [data-ak-settings-overlay] {
+  position: fixed !important;
+  z-index: 100 !important;
+  inset: 0 !important;
+  width: 100vw !important;
+  height: 100vh !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+}
+body[data-dsh-arknights-terminal] :is([data-pane='sidebar'], [class*='sidebarCol'])[data-ak-settings-open] {
+  z-index: 101 !important;
+  overflow: visible !important;
+}
+body[data-dsh-arknights-terminal] [role='dialog'][data-ak-settings-dialog] {
+  flex: 0 0 auto !important;
+  width: min(800px, calc(100vw - 48px)) !important;
+  max-width: calc(100vw - 48px) !important;
+  height: min(800px, calc(100vh - 48px)) !important;
+  max-height: calc(100vh - 48px) !important;
+}
+body[data-dsh-arknights-terminal] [role='dialog'][data-ak-settings-dialog] > * {
+  min-width: 0;
+}
+
+@media (max-width: 640px) {
+  body[data-dsh-arknights-terminal] [data-skin-chrome='settings'] {
+    align-items: stretch;
+    flex-direction: column;
+    gap: 12px;
+  }
+  body[data-dsh-arknights-terminal] [data-skin-chrome='settings'] [role='group'] {
+    width: 100%;
+    justify-content: space-between;
+  }
+  body[data-dsh-arknights-terminal] [data-skin-chrome='settings'] button {
+    flex: 1;
+    padding-inline: 6px;
+  }
+}
 
 body[data-dsh-arknights-terminal] [data-ak-backdrop-frozen] { backdrop-filter:none !important;-webkit-backdrop-filter:none !important }
 body[data-dsh-arknights-terminal] [data-dsh-motion-ghost] { pointer-events:none !important;user-select:none !important }
