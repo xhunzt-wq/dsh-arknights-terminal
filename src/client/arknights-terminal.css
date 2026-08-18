@@ -231,6 +231,20 @@ body[data-dsh-arknights-terminal] :is([data-pane='sidebar'], [class*='sidebarCol
 }
 body[data-dsh-arknights-terminal][data-arknights-mode='dark'] :is([data-pane='sidebar'], [class*='sidebarCol']) button { background: rgba(113,152,160,.1) !important; }
 
+/* The plugin's terminal mark adds visual chrome above DSH's sidebar tree.
+   Keep the host settings trigger anchored independently so a long session
+   list or the mark can never push it below the clipped sidebar viewport. */
+body[data-dsh-arknights-terminal]
+  :is([data-pane='sidebar'], [class*='sidebarCol'])
+  [data-slot='sidebar.settings'] > button {
+  position: fixed !important;
+  z-index: 7;
+  left: 8px;
+  bottom: 10px;
+  width: calc(var(--ak-sidebar-width) - 16px);
+  min-height: 38px;
+}
+
 body[data-dsh-arknights-terminal] [data-ak-workspace-row] {
   margin-top: 7px !important;
   border-left: 3px solid var(--ak-accent) !important;
