@@ -376,8 +376,20 @@ body[data-dsh-arknights-terminal] [data-skin-chrome='settings'] {
 body[data-dsh-arknights-terminal] [data-skin-chrome='settings'] > div:first-child { display:flex;flex-direction:column;gap:4px }
 body[data-dsh-arknights-terminal] [data-skin-chrome='settings'] small { color:var(--ak-muted) }
 body[data-dsh-arknights-terminal] [data-skin-chrome='settings'] [role='group'] { display:flex;gap:5px;padding:3px;border:1px solid var(--ak-line);border-radius:5px }
-body[data-dsh-arknights-terminal] [data-skin-chrome='settings'] button { padding:6px 10px;border:0;background:transparent;color:var(--ak-muted);border-radius:3px }
-body[data-dsh-arknights-terminal] [data-skin-chrome='settings'] button[aria-pressed='true'] { color:#fff;background:var(--ak-accent);box-shadow:0 4px 12px var(--ak-accent-soft) }
+body[data-dsh-arknights-terminal] [data-skin-chrome='settings'] button {
+  padding:6px 10px;
+  border:1px solid transparent;
+  background:rgba(255,255,255,.58) !important;
+  color:#355158 !important;
+  border-radius:3px;
+}
+body[data-dsh-arknights-terminal] [data-skin-chrome='settings'] button[aria-pressed='true'] {
+  color:#fff !important;
+  background:#315b5b !important;
+  border-color:#25494a !important;
+  box-shadow:0 4px 12px rgba(31,75,76,.28) !important;
+  text-shadow:0 1px 1px rgba(0,0,0,.2);
+}
 
 /* DSH mounts the settings portal below the sidebar trigger.  The skin's
    sidebar frame intentionally clips artwork, so explicitly restore this
