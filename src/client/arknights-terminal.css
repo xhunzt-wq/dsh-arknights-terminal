@@ -354,6 +354,14 @@ body[data-dsh-arknights-terminal] :is([data-composer-card], [class*='composerCar
 body[data-dsh-arknights-terminal] :is(textarea, input) { color: var(--ak-ink) !important; caret-color: var(--ak-accent); }
 body[data-dsh-arknights-terminal] :is([data-composer-card], [class*='composerCard']) :is(textarea, input) { background: transparent !important; }
 
+/* DSH adds a white scroll-seat gradient below its sticky composer.  It is a
+   page-canvas effect rather than part of the input itself, so it must remain
+   transparent for the terminal scene to continue through the bottom edge. */
+body[data-dsh-arknights-terminal] [class*='composerSeat'] {
+  background: transparent !important;
+  background-image: none !important;
+}
+
 body[data-dsh-arknights-terminal][data-arknights-phase='active'] :is([data-chat-flow], [class*='conversation'], [class*='messageList'], main > section) {
   background: rgba(243,249,248,.12) !important;
   backdrop-filter: none !important;
