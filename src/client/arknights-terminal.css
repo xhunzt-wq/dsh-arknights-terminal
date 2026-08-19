@@ -242,7 +242,9 @@ body[data-dsh-arknights-terminal] [data-skin-chrome='sidebar-mark'] strong {
 }
 body[data-dsh-arknights-terminal] [data-skin-chrome='sidebar-mark'] em { color: var(--ak-accent); font-style: normal; }
 
-body[data-dsh-arknights-terminal] :is(button, [role='button']) { color: inherit; }
+body[data-dsh-arknights-terminal]
+  :is([data-pane='sidebar'], [class*='sidebarCol'])
+  :is(button, [role='button']) { color: inherit; }
 body[data-dsh-arknights-terminal] :is([data-pane='sidebar'], [class*='sidebarCol']) button {
   border: 1px solid var(--ak-line) !important;
   background: rgba(255,255,255,.36) !important;
@@ -372,6 +374,16 @@ body[data-dsh-arknights-terminal][data-arknights-mode='dark']
 body[data-dsh-arknights-terminal][data-arknights-mode='dark']
   [data-chat-flow-kind] [data-slot='conversation.chat.node'] a:not(pre *):not(code *) {
   color: #82c9ff !important;
+}
+
+/* Permission prompts are host-owned dialogs.  Do not inherit the surrounding
+   message ink into their action buttons: an approval action must remain legible
+   over its dark semantic background in night mode. */
+body[data-dsh-arknights-terminal][data-arknights-mode='dark']
+  :is([role='dialog'], [data-slot*='approval'], [class*='approval'])
+  button:not([data-ak-appearance]) {
+  color: #f5fbfc !important;
+  text-shadow: 0 1px 1px rgba(0,0,0,.32);
 }
 
 body[data-dsh-arknights-terminal] :is(.headline, h1, [class*='headlineText'], [class*='headline']:not([class*='preview'])) { color: #17282e !important; text-shadow: 0 1px rgba(255,255,255,.72), 0 8px 30px rgba(255,255,255,.55); }
