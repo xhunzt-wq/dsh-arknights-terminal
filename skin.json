@@ -10,6 +10,6 @@
   "bodyAttr": "data-dsh-arknights-terminal",
   "package": "@dsh-external/dsh-client-ui-skin-arknights-terminal",
   "wiring": { "id": "ui-skin-arknights-terminal", "bundleWired": false },
-  "preview": { "light": "preview/light.webp", "dark": "preview/dark.webp" },
+  "preview": { "light": "preview/light.jpg", "dark": "preview/dark.jpg" },
   "order": 10
 }

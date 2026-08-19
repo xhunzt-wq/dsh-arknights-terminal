@@ -2,11 +2,9 @@
 
 > DeepSeek Harness Web GUI 的非商业明日方舟同人主题皮肤。
 
-v0.4 使用单一红发干员图层，并将初始页、工作区及昼夜模式严格分开。
+![白天预览](preview/light.jpg)
 
-![白天预览](preview/light.webp)
-
-![夜晚预览](preview/dark.webp)
+![夜晚预览](preview/dark.jpg)
 
 ## 视觉与动效
 
